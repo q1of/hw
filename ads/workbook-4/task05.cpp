@@ -21,9 +21,7 @@ void shellSort(vector<int>& arr) {
 int main() {
     vector<int> arr = {12, 34, 54, 2, 3};
     shellSort(arr);
-    for (size_t i = 0; i < arr.size(); i++) {
-        cout << arr[i] << (i + 1 < arr.size() ? " " : "");
-    }
+    for (int x : arr) cout << x << " ";
     cout << endl;
     return 0;
 }

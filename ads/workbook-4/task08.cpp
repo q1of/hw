@@ -5,64 +5,61 @@
 
 using namespace std;
 
-int binarySearchPosition(const vector<int>& arr, int item, int low, int high) {
+int binarySearch(const vector<int>& a, int item, int low, int high) {
     while (low <= high) {
         int mid = low + (high - low) / 2;
-        if (item == arr[mid]) return mid + 1;
-        if (item > arr[mid]) low = mid + 1;
+        if (item == a[mid]) return mid + 1;
+        if (item > a[mid]) low = mid + 1;
         else high = mid - 1;
     }
     return low;
 }
 
-void binaryInsertionSort(vector<int>& arr) {
-    int n = static_cast<int>(arr.size());
+void binaryInsertionSort(vector<int>& a) {
+    int n = static_cast<int>(a.size());
     for (int i = 1; i < n; i++) {
-        int selected = arr[i];
+        int selected = a[i];
+        int loc = binarySearch(a, selected, 0, i - 1);
         int j = i - 1;
-        int loc = binarySearchPosition(arr, selected, 0, j);
         while (j >= loc) {
-            arr[j + 1] = arr[j];
+            a[j + 1] = a[j];
             j--;
         }
-        arr[j + 1] = selected;
+        a[j + 1] = selected;
     }
 }
 
-void standardInsertionSort(vector<int>& arr) {
-    int n = static_cast<int>(arr.size());
+void standardInsertionSort(vector<int>& a) {
+    int n = static_cast<int>(a.size());
     for (int i = 1; i < n; i++) {
-        int key = arr[i];
+        int key = a[i];
         int j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
             j--;
         }
-        arr[j + 1] = key;
+        a[j + 1] = key;
     }
 }
 
 int main() {
     mt19937 gen(42);
-    uniform_int_distribution<int> dis(1, 100000);
-    int size = 5000;
-    vector<int> a(size), b(size);
-    for (int i = 0; i < size; i++) {
-        a[i] = dis(gen);
-        b[i] = a[i];
-    }
+    uniform_int_distribution<int> dist(1, 10000);
+    vector<int> a(5000), b;
+    for (int& x : a) x = dist(gen);
+    b = a;
 
-    auto startStd = chrono::high_resolution_clock::now();
+    auto t1 = chrono::high_resolution_clock::now();
     standardInsertionSort(a);
-    auto endStd = chrono::high_resolution_clock::now();
-    auto timeStd = chrono::duration_cast<chrono::microseconds>(endStd - startStd).count();
+    auto t2 = chrono::high_resolution_clock::now();
+    auto stdTime = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
 
-    auto startBin = chrono::high_resolution_clock::now();
+    t1 = chrono::high_resolution_clock::now();
     binaryInsertionSort(b);
-    auto endBin = chrono::high_resolution_clock::now();
-    auto timeBin = chrono::duration_cast<chrono::microseconds>(endBin - startBin).count();
+    t2 = chrono::high_resolution_clock::now();
+    auto binTime = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
 
-    cout << "Standard insertion sort: " << timeStd << " us" << endl;
-    cout << "Binary insertion sort: " << timeBin << " us" << endl;
+    cout << "Standard Insertion Sort: " << stdTime << " mcs" << endl;
+    cout << "Binary Insertion Sort:   " << binTime << " mcs" << endl;
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -20,9 +21,7 @@ void bubbleSort(vector<int>& arr) {
 int main() {
     vector<int> arr = {64, 34, 25, 12, 22, 11, 90};
     bubbleSort(arr);
-    for (size_t i = 0; i < arr.size(); i++) {
-        cout << arr[i] << (i + 1 < arr.size() ? " " : "");
-    }
+    for (int x : arr) cout << x << " ";
     cout << endl;
     return 0;
 }

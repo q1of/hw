@@ -1,40 +1,36 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
-void cocktailSort(vector<int>& arr) {
+void shakerSort(vector<int>& arr) {
     int left = 0;
     int right = static_cast<int>(arr.size()) - 1;
-    bool swapped = true;
-
-    while (swapped) {
-        swapped = false;
+    while (left < right) {
+        int lastSwap = left;
         for (int i = left; i < right; i++) {
             if (arr[i] > arr[i + 1]) {
                 swap(arr[i], arr[i + 1]);
-                swapped = true;
+                lastSwap = i;
             }
         }
-        if (!swapped) break;
-        swapped = false;
-        right--;
-        for (int i = right - 1; i >= left; i--) {
-            if (arr[i] > arr[i + 1]) {
-                swap(arr[i], arr[i + 1]);
-                swapped = true;
+        right = lastSwap;
+
+        for (int i = right; i > left; i--) {
+            if (arr[i] < arr[i - 1]) {
+                swap(arr[i], arr[i - 1]);
+                lastSwap = i;
             }
         }
-        left++;
+        left = lastSwap;
     }
 }
 
 int main() {
     vector<int> arr = {5, 1, 4, 2, 8, 0, 2};
-    cocktailSort(arr);
-    for (size_t i = 0; i < arr.size(); i++) {
-        cout << arr[i] << (i + 1 < arr.size() ? " " : "");
-    }
+    shakerSort(arr);
+    for (int x : arr) cout << x << " ";
     cout << endl;
     return 0;
 }
