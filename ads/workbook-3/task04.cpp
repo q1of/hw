@@ -4,40 +4,38 @@
 
 using namespace std;
 
-string multiplyColumn(const string& s1, const string& s2) {
-    vector<int> a, b;
-    for (int i = static_cast<int>(s1.length()) - 1; i >= 0; i--) a.push_back(s1[i] - '0');
-    for (int i = static_cast<int>(s2.length()) - 1; i >= 0; i--) b.push_back(s2[i] - '0');
+vector<int> multiplyColumn(const string& s1, const string& s2) {
+    int n = static_cast<int>(s1.length());
+    int m = static_cast<int>(s2.length());
+    vector<int> res(n + m, 0);
 
-    vector<int> res(a.size() + b.size(), 0);
-    for (size_t i = 0; i < a.size(); i++) {
-        for (size_t j = 0; j < b.size(); j++) {
-            res[i + j] += a[i] * b[j];
+    for (int i = n - 1; i >= 0; i--) {
+        for (int j = m - 1; j >= 0; j--) {
+            int mul = (s1[i] - '0') * (s2[j] - '0');
+            int p1 = i + j;
+            int p2 = i + j + 1;
+            int sum = mul + res[p2];
+            res[p2] = sum % 10;
+            res[p1] += sum / 10;
         }
     }
-
-    int carry = 0;
-    for (size_t k = 0; k < res.size(); k++) {
-        int total = res[k] + carry;
-        res[k] = total % 10;
-        carry = total / 10;
-    }
-
-    while (res.size() > 1 && res.back() == 0) {
-        res.pop_back();
-    }
-
-    string s = "";
-    for (int i = static_cast<int>(res.size()) - 1; i >= 0; i--) {
-        s += to_string(res[i]);
-    }
-    return s;
+    return res;
 }
 
 int main() {
-    string s1 = "12345678901234567890";
-    string s2 = "98765432109876543210";
-    string result = multiplyColumn(s1, s2);
-    cout << s1 << " * " << s2 << " = " << result << endl;
+    string s1, s2;
+    if (!(cin >> s1 >> s2)) {
+        s1 = "123456789";
+        s2 = "987654321";
+    }
+    vector<int> res = multiplyColumn(s1, s2);
+    size_t i = 0;
+    while (i < res.size() - 1 && res[i] == 0) {
+        i++;
+    }
+    for (; i < res.size(); i++) {
+        cout << res[i];
+    }
+    cout << endl;
     return 0;
 }

@@ -2,41 +2,31 @@
 
 using namespace std;
 
-void divideBinarySearch(unsigned long long a, unsigned long long b, unsigned long long& quotient, unsigned long long& remainder) {
-    if (b == 0) {
-        quotient = 0;
-        remainder = 0;
-        return;
-    }
-    if (a < b) {
-        quotient = 0;
-        remainder = a;
-        return;
-    }
-    unsigned long long low = 0;
-    unsigned long long high = a;
-    quotient = 0;
+void divideBinary(long long a, long long b, long long& q, long long& r) {
+    if (b == 0) return;
+    long long low = 0;
+    long long high = a;
+    q = 0;
     while (low <= high) {
-        unsigned long long mid = low + (high - low) / 2;
+        long long mid = low + (high - low) / 2;
         if (mid <= a / b) {
-            quotient = mid;
+            q = mid;
             low = mid + 1;
         } else {
             high = mid - 1;
         }
     }
-    remainder = a - b * quotient;
+    r = a - q * b;
 }
 
 int main() {
-    unsigned long long a = 123456789012345ULL;
-    unsigned long long b = 98765ULL;
-    unsigned long long q = 0, r = 0;
-
-    divideBinarySearch(a, b, q, r);
-
-    cout << "A: " << a << endl;
-    cout << "B: " << b << endl;
+    long long a, b;
+    if (!(cin >> a >> b)) {
+        a = 987654321;
+        b = 12345;
+    }
+    long long q = 0, r = 0;
+    divideBinary(a, b, q, r);
     cout << "Quotient: " << q << endl;
     cout << "Remainder: " << r << endl;
     return 0;
