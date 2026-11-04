@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -27,8 +28,8 @@ void quickSort(vector<int>& arr, int low, int high) {
 int main() {
     vector<int> arr = {10, 7, 8, 9, 1, 5};
     quickSort(arr, 0, static_cast<int>(arr.size()) - 1);
-    for (size_t i = 0; i < arr.size(); i++) {
-        cout << arr[i] << (i + 1 < arr.size() ? " " : "");
+    for (int x : arr) {
+        cout << x << " ";
     }
     cout << endl;
     return 0;

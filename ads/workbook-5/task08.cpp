@@ -3,7 +3,9 @@
 using namespace std;
 
 long long F(long long n) {
-    if (n <= 1) return 1;
+    if (n <= 1) {
+        return n;
+    }
     if (n % 2 == 0) {
         return F(n / 2);
     }
@@ -11,8 +13,10 @@ long long F(long long n) {
 }
 
 int main() {
-    for (int n = 1; n <= 15; n++) {
-        cout << "F(" << n << ") = " << F(n) << endl;
+    long long n;
+    if (!(cin >> n)) {
+        n = 15;
     }
+    cout << F(n) << endl;
     return 0;
 }
