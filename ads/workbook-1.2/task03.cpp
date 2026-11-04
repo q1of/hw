@@ -3,11 +3,9 @@
 
 using namespace std;
 
-void countNegPos(const vector<int>& arr, int& negCount, int& posCount) {
-    int n = static_cast<int>(arr.size());
-
+int countNegatives(const vector<int>& arr) {
     int left = 0;
-    int right = n;
+    int right = static_cast<int>(arr.size());
     while (left < right) {
         int mid = left + (right - left) / 2;
         if (arr[mid] < 0) {
@@ -16,10 +14,12 @@ void countNegPos(const vector<int>& arr, int& negCount, int& posCount) {
             right = mid;
         }
     }
-    negCount = left;
+    return left;
+}
 
-    left = 0;
-    right = n;
+int countPositives(const vector<int>& arr) {
+    int left = 0;
+    int right = static_cast<int>(arr.size());
     while (left < right) {
         int mid = left + (right - left) / 2;
         if (arr[mid] <= 0) {
@@ -28,26 +28,19 @@ void countNegPos(const vector<int>& arr, int& negCount, int& posCount) {
             right = mid;
         }
     }
-    posCount = n - left;
+    return static_cast<int>(arr.size()) - left;
 }
 
 int main() {
     vector<int> arr = {-15, -10, -8, -4, -1, 0, 0, 2, 5, 7, 9, 14, 22, 35};
-    int negCount = 0;
-    int posCount = 0;
-
-    countNegPos(arr, negCount, posCount);
-
-    cout << "Negative count: " << negCount << endl;
-    cout << "Positive count: " << posCount << endl;
-
-    if (posCount > negCount) {
-        cout << "More positive numbers: " << posCount << endl;
-    } else if (negCount > posCount) {
-        cout << "More negative numbers: " << negCount << endl;
+    int neg = countNegatives(arr);
+    int pos = countPositives(arr);
+    if (pos > neg) {
+        cout << pos << endl;
+    } else if (neg > pos) {
+        cout << neg << endl;
     } else {
-        cout << "Equal count: " << posCount << endl;
+        cout << pos << endl;
     }
-
     return 0;
 }
