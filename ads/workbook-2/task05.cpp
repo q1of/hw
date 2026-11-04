@@ -1,22 +1,23 @@
 #include <iostream>
 #include <string>
-#include <iomanip>
 
 using namespace std;
 
 int main() {
-    long long seed = 14563;
-    long long current = seed;
-    for (int i = 1; i <= 10; i++) {
-        long long sq = current * current;
+    long long val;
+    if (!(cin >> val)) {
+        val = 14563;
+    }
+    for (int i = 0; i < 10; i++) {
+        long long sq = val * val;
         string s = to_string(sq);
         while (s.length() < 10) {
             s = "0" + s;
         }
-        int start = (static_cast<int>(s.length()) - 5) / 2;
+        int start = static_cast<int>(s.length() - 5) / 2;
         string mid = s.substr(start, 5);
-        current = stoll(mid);
-        cout << i << ": " << setw(5) << setfill('0') << current << endl;
+        val = stoll(mid);
+        cout << val << endl;
     }
     return 0;
 }

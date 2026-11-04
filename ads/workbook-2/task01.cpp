@@ -1,27 +1,39 @@
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
-int gcdSub(int a, int b) {
-    a = abs(a);
-    b = abs(b);
-    if (a == 0) return b;
-    if (b == 0) return a;
+long long gcdSub(long long a, long long b) {
+    if (a < 0) {
+        a = -a;
+    }
+    if (b < 0) {
+        b = -b;
+    }
+    if (a == 0) {
+        return b;
+    }
+    if (b == 0) {
+        return a;
+    }
     while (a != b) {
-        if (a > b) a -= b;
-        else b -= a;
+        if (a > b) {
+            a -= b;
+        } else {
+            b -= a;
+        }
     }
     return a;
 }
 
-int gcdFour(int a, int b, int c, int d) {
-    return gcdSub(gcdSub(gcdSub(a, b), c), d);
-}
-
 int main() {
-    int a = 48, b = 64, c = 80, d = 96;
-    int result = gcdFour(a, b, c, d);
-    cout << "GCD: " << result << endl;
+    long long a, b, c, d;
+    if (!(cin >> a >> b >> c >> d)) {
+        a = 48;
+        b = 64;
+        c = 80;
+        d = 96;
+    }
+    long long result = gcdSub(gcdSub(gcdSub(a, b), c), d);
+    cout << result << endl;
     return 0;
 }
