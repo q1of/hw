@@ -2,10 +2,10 @@
 
 ```text
 ├── practice-01/          # Первая практическая работа
-│   ├── main.go
+│   ├── main.cpp
 │   └── README.md
 ├── practice-02/          # Вторая практическая работа
-│   ├── main.go
+│   ├── main.cpp
 │   └── README.md
 └── README.md             # Сводная информация
 ```
